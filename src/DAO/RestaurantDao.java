@@ -41,15 +41,7 @@ public class RestaurantDao {
 		
 		rs.next();
 		
-		return listRestaurants(rs.getInt(1), rs.getString(2));
-	}
-	
-	private Restaurants listRestaurants(int restaurantId, String restaurantName) throws SQLException {
-		return new Restaurants(restaurantId, restaurantName);
-	}
-	
-	private Restaurants listRestaurantCategory(int restaurantId, String restaurantName) throws SQLException {
-		return new Restaurants(restaurantId, restaurantName,restaurantCategoryDAO.setGetCategoryByRestaurantId(restaurantId));
+		return listRestaurantCategory(rs.getInt(1), rs.getString(2));
 	}
 	
 	public void newRestaurant(String restaurantName, String restaurantState, String userName) throws SQLException {
@@ -74,5 +66,14 @@ public class RestaurantDao {
 		ps.executeUpdate();
 		
 	}
+	
+	private Restaurants listRestaurants(int restaurantId, String restaurantName) throws SQLException {
+		return new Restaurants(restaurantId, restaurantName);
+	}
+	
+	private Restaurants listRestaurantCategory(int restaurantId, String restaurantName) throws SQLException {
+		return new Restaurants(restaurantId, restaurantName,restaurantCategoryDAO.setGetCategoryByRestaurantId(restaurantId));
+	}
+	
 
 }

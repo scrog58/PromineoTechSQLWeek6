@@ -12,9 +12,8 @@ public class RestaurantCategory {
 		this.setCategoryName(categoryName);
 	}
 	
-	public RestaurantCategory(int getRestaurantId, String categoryName) {
-	
-		this.setGetRestaurantId(getRestaurantId);
+	public RestaurantCategory(int restaurantCategoryId, String categoryName) {
+		this.setRestaurantCategoryId(restaurantCategoryId);
 		this.setCategoryName(categoryName);
 	}
 
