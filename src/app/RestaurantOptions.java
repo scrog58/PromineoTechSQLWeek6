@@ -36,15 +36,15 @@ public class RestaurantOptions {
 				} else if(makeSelection.equals("2")){
 					listRestaurantAndCategories();
 				} else if(makeSelection.equals("3")){
-					//newRestaurant();
+					getNewRestaurant();
 				} else if(makeSelection.equals("4")){
-					//editRestaurantName();
+					editResturantName();
 				} else if(makeSelection.equals("5")){
-					//deleteRestaurant();
+					deleteRestaurantandCategory();
 				} else if(makeSelection.equals("6")){
-					//dnewCategory();
+					getNewCategory();
 				} else if(makeSelection.equals("7")){
-					//deleteCategory();
+					deleteCategory();
 				} else if(makeSelection.equals("0")){
 					break;
 				}
@@ -74,7 +74,7 @@ public class RestaurantOptions {
 	private void listRestaurantsAllInfo() throws SQLException {
 		List<Restaurants> restAllInfo = restaurantDao.getRestaurant();
 		for(Restaurants rest : restAllInfo) {
-			System.out.println(rest.getRestaurantId() + ") {Name:"+ rest.getRestaurantName()+ ",Address: "+ rest.getRestaurantAddress()+ ",City: "+rest.getRestaurantCity()+ ",State: "+rest.getRestaurantState()+ "}");
+			System.out.println(rest.getRestaurantId() + ") {Name:"+ rest.getRestaurantName()+ " ,Address: "+ rest.getRestaurantAddress()+ " ,City: "+rest.getRestaurantCity()+ " ,State: "+rest.getRestaurantState()+ "}");
 		}
 		
 	}
@@ -90,6 +90,61 @@ public class RestaurantOptions {
 
 	}
 	
+	private void getOneRestaurantAndCategories(int restId) throws SQLException {
+		Restaurants rest = restaurantDao.getRestaurantById(restId);
+		System.out.println(rest.getRestaurantId() + ": "+ rest.getRestaurantName());
+		for(RestaurantCategory restCat: rest.getRestaurantCategory()) {
+			System.out.print("Id: "+ restCat.getRestaurantCategoryId()+", Category : "+ restCat.getCategoryName()+"\n");
+		}
+
+	}
+	
+	private void getNewRestaurant() throws SQLException {
+		String getStateName = "";
+		System.out.println("Enter new Restaurant Name:");
+		String name = scanner.nextLine();
+		System.out.println("Enter Restaurant State Location: (only two letters)");
+		String state = scanner.nextLine();
+		if(state.length() > 2) {
+			getStateName = "AZ";
+		} else {
+			getStateName = state;
+		}
+		restaurantDao.newRestaurant(name,getStateName); 
+	}
+	
+	private void getNewCategory() throws SQLException {
+		System.out.println("Enter Restaurant Id:");
+		int restId = Integer.parseInt(scanner.nextLine());
+		System.out.println("Entering a new Category:");
+		String category = scanner.nextLine();
+		restaurantCategoryDao.newCategory(restId, category); 		
+	}
+	
+	private void editResturantName() throws SQLException {
+		System.out.println("Enter Restaurant Id:");
+		int restId = Integer.parseInt(scanner.nextLine());
+		System.out.println("Enter New Restaurant Name:");
+		String restName = scanner.nextLine();
+		restaurantDao.updateRestaurantName(restId, restName);
+	}
+	
+	
+	private void deleteRestaurantandCategory() throws SQLException {
+		System.out.println("Enter Restaurant Id:");
+		int restId = Integer.parseInt(scanner.nextLine());
+		restaurantDao.deleteRestaurant(restId);
+	}
+	
+	private void deleteCategory()  throws SQLException {
+		System.out.println("Enter Restaurant Id:");
+		int restId = Integer.parseInt(scanner.nextLine());
+		getOneRestaurantAndCategories(restId);
+		
+		System.out.println("Enter Category Id:");
+		int restCatId = Integer.parseInt(scanner.nextLine());
+		restaurantCategoryDao.removeCategoryByIdandRestId(restId,restCatId) ;
+	}
 	
 
 }

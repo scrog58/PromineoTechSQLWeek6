@@ -12,7 +12,7 @@ import entity.RestaurantCategory;
 public class RestaurantCategoryDao {
 	private Connection connection;
 	private final String GET_CATEGORY_BY_RESTAURANTID = "SELECT * FROM restaurant_category RC INNER JOIN restaurants R ON RC.restaurantid = R.id WHERE RC.restaurantid = ?";
-	private final String NEW_CATEGORY_BY_RESTAURANTID = "INSERT INTO restaurant_category(restaurantid,name) VALUES(??) WHERE restaurantid = ?";
+	private final String NEW_CATEGORY_QUERY = "INSERT INTO restaurant_category(restaurantid,name) VALUES(?,?)";
 	private final String REMOVE_ALL_CATEGORIES_BY_RESTID = "DELETE FROM restaurant_category WHERE restaurantid = ? ";
 	private final String DELETE_CATEGORY_BY_ID_AND_RESTID = "DELETE FROM restaurant_category WHERE restaurantid = ? AND id = ?";
 	
@@ -34,13 +34,11 @@ public class RestaurantCategoryDao {
 		return restCat;
 	}
 	
-	public void getNewCategory(int restId, String name) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(NEW_CATEGORY_BY_RESTAURANTID);
-		ps.setInt(1,restId);
-		ps.setString(2, name);
-		ps.setInt(3,restId);
+	public void newCategory(int restId, String getName) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(NEW_CATEGORY_QUERY);
+		ps.setInt(1, restId);
+		ps.setString(2, getName);
 		ps.executeUpdate();
-		
 	}
 	
 	public void removeAllCategoriesByRestId(int restId) throws SQLException {
@@ -51,7 +49,7 @@ public class RestaurantCategoryDao {
 	}
 	
 	public void removeCategoryByIdandRestId(int restId, int categoryId) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(REMOVE_ALL_CATEGORIES_BY_RESTID);
+		PreparedStatement ps = connection.prepareStatement(DELETE_CATEGORY_BY_ID_AND_RESTID);
 		ps.setInt(1, restId);
 		ps.setInt(2, categoryId);
 		ps.executeUpdate();
