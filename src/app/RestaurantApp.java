@@ -6,7 +6,6 @@ public class RestaurantApp {
 		RestaurantOptions options = new RestaurantOptions();
 		System.out.println("ADMIN:");
 		
-		
 		options.start();
 
 	}

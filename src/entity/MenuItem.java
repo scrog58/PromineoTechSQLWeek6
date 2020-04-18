@@ -1,35 +1,35 @@
 package entity;
 
 public class MenuItem {
-    private int menuItemId; //primary key
-    private int restaurantId; //foreign key
+    private int id; 
+    private int restaurantid; 
     private int price;
-    private String itemName; //"item" in sql table
+    private String itemName; 
 
     public MenuItem(
-        int menuItemId, int restaurantId,
-        int price, String itemName
+        int id, int restaurantid,
+        int price, String item
         ) {
-            this.setMenuItemId(menuItemId);
-            this.setRestaurantId(restaurantId);
+            this.setMenuItemId(id);
+            this.setRestaurantId(restaurantid);
             this.setPrice(price);
-            this.setItemName(itemName);
+            this.setItemName(item);
     }
     
-    public void setMenuItemId(int menuItemId) {
-        this.menuItemId = menuItemId;
+    public void setMenuItemId(int id) {
+        this.id = id;
     }
 
     public int getMenuItemId() {
-        return menuItemId;
+        return id;
     }
 
     public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
+        this.restaurantid = restaurantId;
     }
 
     public int getRestaurantId() {
-        return restaurantId;
+        return restaurantid;
     }
 
     public void setPrice(int price) {
