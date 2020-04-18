@@ -93,13 +93,13 @@ public class RestaurantOptions {
 					updateItem();
 				} else if (makeSelection.equals("17")){
 					rmItem();
-				} else if (makeSelection.equals("8")) {
+				} else if (makeSelection.equals("18")) {
 					displayCustomerPurchases();
-				} else if (makeSelection.equals("9")) {
+				} else if (makeSelection.equals("19")) {
 					showWhatCustomerBought();
-				} else if (makeSelection.equals("10")) {
+				} else if (makeSelection.equals("20")) {
 					displayCustomers();
-				} else if (makeSelection.equals("11")) {
+				} else if (makeSelection.equals("21")) {
 					showCustomersAtRestaurant();
 				} else if(makeSelection.equals("0")){
 					break;
