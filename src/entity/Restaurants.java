@@ -15,8 +15,7 @@ public class Restaurants {
 		this.setRestaurantName(restaurantName);
 		this.setRestaurantcategory(restaurantcategory);
 		
-	}
-	
+	}	
 	
 	public Restaurants(int restaurantId, String restaurantName, String restaurantState) {
 		this.setRestaurantId(restaurantId);
