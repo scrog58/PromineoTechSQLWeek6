@@ -89,7 +89,6 @@ public class RestaurantOptions {
 
 	}
 	
-
 	private void getOneRestaurantAndCategories(int restId) throws SQLException {
 		Restaurants rest = restaurantDao.getRestaurantById(restId);
 		System.out.println(rest.getRestaurantId() + ": "+ rest.getRestaurantName());
@@ -145,5 +144,4 @@ public class RestaurantOptions {
 		int restCatId = Integer.parseInt(scanner.nextLine());
 		restaurantCategoryDao.removeCategoryByIdandRestId(restId,restCatId) ;
 	}
-
 }
