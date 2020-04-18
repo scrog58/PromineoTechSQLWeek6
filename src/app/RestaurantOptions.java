@@ -54,12 +54,11 @@ public class RestaurantOptions {
 				e.printStackTrace();
 			}
 			
-			
 			System.out.println("Press enter to continue.........");
 			scanner.nextLine();
 		}
 			
-
+		
 		
 	}
 	
@@ -90,6 +89,8 @@ public class RestaurantOptions {
 
 	}
 	
-	
+//	private void newRestaurant() {
+//		
+//	}
 
 }
