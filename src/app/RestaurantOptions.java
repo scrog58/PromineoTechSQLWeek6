@@ -6,21 +6,37 @@ import java.util.List;
 import java.util.Scanner;
 
 import DAO.RestaurantDao;
+<<<<<<< HEAD
+=======
+import entity.CustomerPurchases;
+import entity.Customers;
+import entity.RestaurantCategory;
+import DAO.CustomerPurchaseDao;
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 import DAO.RestaurantCategoryDao;
 import DAO.EmployeeDao;
 import DAO.MenuItemDao;
 import entity.RestaurantCategory;
 import entity.Restaurants;
 import entity.RestaurantCategory;
+<<<<<<< HEAD
 import entity.Employee;
 import entity.MenuItem;
+=======
+import DAO.CustomersDao;
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 
 public class RestaurantOptions {
 	private Scanner scanner = new Scanner(System.in);
 	private RestaurantDao restaurantDao = new RestaurantDao();
 	private RestaurantCategoryDao restaurantCategoryDao = new RestaurantCategoryDao();
+<<<<<<< HEAD
 	private EmployeeDao employeeDao = new EmployeeDao();
 	private MenuItemDao itemDao = new MenuItemDao();
+=======
+	private CustomerPurchaseDao customerPurchaseDao = new CustomerPurchaseDao();
+	private CustomersDao customersDao = new CustomersDao();
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 	private List<String> options = Arrays.asList(
 			"List All Restaurants and Info"
 			, "List Restaurant with Category"
@@ -29,6 +45,7 @@ public class RestaurantOptions {
 			, "Delete Restaurant"
 			, "New Category"
 			, "Delete Category"
+<<<<<<< HEAD
 			, "New Employee"
 			, "List Employee By ID"
 			, "List All Employees"
@@ -39,6 +56,12 @@ public class RestaurantOptions {
 			, "Get All Items"
 			, "Modify Existing Item"
 			, "Remove Item"
+=======
+			, "List all Purchases"
+			, "List Purchases by Customer"
+			, "Show All Customers"
+			, "Show Customers at a Restaurant"
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 			 );
 	
 	public void start() {
@@ -62,6 +85,7 @@ public class RestaurantOptions {
 					getNewCategory();
 				} else if(makeSelection.equals("7")){
 					deleteCategory();
+<<<<<<< HEAD
 				} else if(makeSelection.equals("8")){
 					makeNewEmployee();
 				} else if(makeSelection.equals("9")){
@@ -82,6 +106,16 @@ public class RestaurantOptions {
 					updateItem();
 				} else if (makeSelection.equals("17")){
 					rmItem();
+=======
+				} else if (makeSelection.equals("8")) {
+					displayCustomerPurchases();
+				} else if (makeSelection.equals("9")) {
+					showWhatCustomerBought();
+				} else if (makeSelection.equals("10")) {
+					displayCustomers();
+				} else if (makeSelection.equals("11")) {
+					showCustomersAtRestaurant();
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 				} else if(makeSelection.equals("0")){
 					break;
 				}
@@ -183,6 +217,7 @@ public class RestaurantOptions {
 		restaurantCategoryDao.removeCategoryByIdandRestId(restId,restCatId) ;
 	}
 	
+<<<<<<< HEAD
 	private void makeNewEmployee() throws SQLException {
 		System.out.println("Enter the Employee's Restaurant ID Number: ");
 		int restaurantid = Integer.parseInt(scanner.nextLine());
@@ -286,4 +321,37 @@ public class RestaurantOptions {
 		itemDao.updateExistingMenuItem(id, item, price);
 	}
 
+=======
+	private void displayCustomerPurchases() throws SQLException {
+		List<CustomerPurchases> customerpurchases = customerPurchaseDao.showPurchases();
+		for(CustomerPurchases customerpurchase : customerpurchases) {
+			System.out.println(customerpurchase.getId() + customerpurchase.getCustomerId() + customerpurchase.getPurchaseDate());
+		}
+	}
+	
+	private void showWhatCustomerBought() throws SQLException {
+		System.out.println("Enter Customer ID: ");
+		int id = Integer.parseInt(scanner.nextLine());
+		CustomerPurchases customerpurchases = customerPurchaseDao.getPurchasesByCustomer(id);
+		System.out.println(customerpurchases.getId() + customerpurchases.getPurchaseDate());
+		
+	}
+	
+	private void displayCustomers() throws SQLException {
+		List<Customers> customers = customersDao.showCustomers();
+		for(Customers customer : customers) {
+			System.out.println(customer.getId() + customer.getRestaurantId() + customer.getName() + customer.getBirthdate() + customer.getCity() + customer.getState());
+		}
+	}
+	
+	private void showCustomersAtRestaurant() throws SQLException {
+		System.out.println("Enter Restaurant ID: ");
+		int id = Integer.parseInt(scanner.nextLine());
+		Customers customers = customersDao.showCustomersByRestaurant(id);
+		System.out.println(customers.getId() + customers.getName() + customers.getState());
+	}
+	
+	
+	
+>>>>>>> acbd7feb1d7d891cd7361b0ae7e6511bb04d837c
 }
