@@ -15,6 +15,7 @@ public class CustomersDao {
 	private Connection connection;
 	private final String SHOW_ALL_CUSTOMERS_QUERY = "SELECT * FROM customers";
 	private final String SHOW_ALL_CUSTOMERS_AT_RESTAURANT_QUERY = "SELECT * FROM customers WHERE restaurant_id = ?";
+	private final String DELETE_ALL_CUSTOMER_BY_RESTID = "DELETE FROM customers WHERE restaurant_id = ?";
 	
 	public CustomersDao() {
 		connection = DBConnection.getConnection();
@@ -35,6 +36,13 @@ public class CustomersDao {
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		return populateCustomers(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+	}
+	
+	public void deleteAllCustomersByRestId(int restaurantId) throws SQLException {		
+		PreparedStatement ps = connection.prepareStatement(DELETE_ALL_CUSTOMER_BY_RESTID);
+		ps.setInt(1, restaurantId);
+		ps.executeUpdate();
+		
 	}
 	
 	

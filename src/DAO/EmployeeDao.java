@@ -15,6 +15,7 @@ public class EmployeeDao {
     private final String SELECT_EMPLOYEE_BY_ID_QUERY = "SELECT * FROM employees WHERE id = ?";
     private final String UPDATE_EXISTING_EMPLOYEE_NAME = "UPDATE employees SET first_name = ?, last_name = ? WHERE id = ?";
     private final String REMOVE_EMPLOYEE_QUERY = "DELETE FROM employees WHERE id = ?";
+    private final String REMOVE_ALL_EMPLOYEE_QUERY_RESTID = "DELETE FROM employees WHERE restaurantid = ?";
 
     public EmployeeDao() {
         connection = DBConnection.getConnection();
@@ -39,7 +40,13 @@ public class EmployeeDao {
     public void removeEmployee(int empId) throws SQLException {
         PreparedStatement prepState = connection.prepareStatement(REMOVE_EMPLOYEE_QUERY);
         prepState.setInt(1, empId);
-        prepState.executeQuery();
+        prepState.executeUpdate();
+    }
+    
+    public void removeAllEmployeesbyRestuarantID(int restID) throws SQLException {
+    	 PreparedStatement prepState = connection.prepareStatement(REMOVE_ALL_EMPLOYEE_QUERY_RESTID);
+         prepState.setInt(1, restID);
+         prepState.executeUpdate();
     }
 
     public List<Employee> getEmployees() throws SQLException {

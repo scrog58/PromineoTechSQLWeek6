@@ -13,6 +13,9 @@ import entity.Restaurants;
 public class RestaurantDao {
 	private Connection connection;
 	private RestaurantCategoryDao restaurantCategoryDAO;
+	private EmployeeDao employeeDAO;
+	private CustomersDao customerDAO;
+	private MenuItemDao menuItemDAO;
 	private final String GET_RESTAURANT_QUERY = "SELECT * FROM restaurants";
 	private final String GET_RESTAURANT_BY_ID = "SELECT * FROM restaurants WHERE id = ?";
 	private final String NEW_RESTAURANT_NAME_STATE_QUERY = "INSERT INTO restaurants(name,state) VALUES(?,?)";
@@ -22,6 +25,9 @@ public class RestaurantDao {
 	public RestaurantDao() {
 		connection = DBConnection.getConnection();
 		restaurantCategoryDAO = new RestaurantCategoryDao();
+		employeeDAO = new EmployeeDao();
+		customerDAO = new CustomersDao();
+		menuItemDAO = new MenuItemDao();
 	}
 	public List<Restaurants> getRestaurant() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_RESTAURANT_QUERY).executeQuery();
@@ -53,7 +59,11 @@ public class RestaurantDao {
 	}
 	
 	public void deleteRestaurant(int restaurantId) throws SQLException {
+		employeeDAO.removeAllEmployeesbyRestuarantID(restaurantId);
+		customerDAO.deleteAllCustomersByRestId(restaurantId);
+		menuItemDAO.deleteALLMenuItemsByRestID(restaurantId);
 		restaurantCategoryDAO.removeAllCategoriesByRestId(restaurantId);
+		
 		PreparedStatement ps = connection.prepareStatement(DELETE_RESTAURANT_BY_ID);
 		ps.setInt(1, restaurantId);
 		ps.executeUpdate();

@@ -15,6 +15,7 @@ public class MenuItemDao {
     private final String LIST_ALL_MENU_ITEMS = "SELECT * FROM menuitems";
     private final String UPDATE_EXISTING_MENU_ITEM = "UPDATE menuitems SET item = ?, price = ? WHERE id = ?";
     private final String REMOVE_MENU_ITEM = "DELETE FROM menuitems WHERE id = ?";
+    private final String DELETE_ALL_MENU_ITEMS_BY_RESTID = "DELETE FROM menuitems WHERE restaurantid = ?";
 
     public MenuItemDao() {
         connection = DBConnection.getConnection();
@@ -31,7 +32,13 @@ public class MenuItemDao {
     public void rmMenuItem(int id) throws SQLException {
         PreparedStatement prepState = connection.prepareStatement(REMOVE_MENU_ITEM);
         prepState.setInt(1, id);
-        prepState.executeQuery();
+        prepState.executeUpdate();
+    }
+    
+    public void deleteALLMenuItemsByRestID(int restId) throws SQLException {
+        PreparedStatement prepState = connection.prepareStatement(DELETE_ALL_MENU_ITEMS_BY_RESTID);
+        prepState.setInt(1, restId);
+        prepState.executeUpdate();
     }
 
     public List<MenuItem> getAllMenuItems() throws SQLException {
